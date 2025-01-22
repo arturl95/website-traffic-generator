@@ -24,7 +24,7 @@
         },
         "waitOnPage": {
             "title": "Wait Time on Page (seconds)",
-            "type": "number",
+            "type": "integer",
             "description": "Specify how long (in seconds) the actor should stay on each page.",
             "default": 60,
             "minimum": 1,
@@ -52,7 +52,7 @@
         },
         "duplicateActor": {
             "title": "Duplicate Actor Instances",
-            "type": "number",
+            "type": "integer",
             "description": "Number of additional actor instances to run simultaneously for increased traffic.",
             "default": 1,
             "minimum": 1,
@@ -60,7 +60,7 @@
         },
         "endAfterSeconds": {
             "title": "Execution Duration (seconds)",
-            "type": "number",
+            "type": "integer",
             "description": "Maximum time (in seconds) for the actor to run before stopping.",
             "default": 600,
             "minimum": 60,
