@@ -10,8 +10,6 @@ The **Traffic Generator Actor** is a tool designed to simulate traffic on target
 - **Proxy Support**: Configure proxy settings to mimic visits from different geographic regions.
 - **Crawling Capability**: Optionally crawl subpages of the target URLs.
 - **Resource Blocking**: Optimize performance by blocking unnecessary resources like images and scripts.
-- **Duplicate Runs**: Scale operations by running multiple actor instances simultaneously.
-
 ---
 
 ## How It Works
@@ -41,7 +39,6 @@ The actor accepts the following input configuration:
     "blockUrlPatterns": [],
     "waitOnPage": 60,
     "endAfterSeconds": 600,
-    "duplicateActor": 1
 }
 ```
 
@@ -54,7 +51,6 @@ The actor accepts the following input configuration:
 - **`blockUrlPatterns`** (Optional): Array of URL patterns to block (e.g., `[".jpg", ".css"]`).
 - **`waitOnPage`** (Optional): Time in seconds to stay on each page (default: 60 seconds).
 - **`endAfterSeconds`** (Optional): Maximum time in seconds for the actor to run (default: 600 seconds).
-- **`duplicateActor`** (Optional): Number of additional actor instances to run simultaneously (default: 1).
 
 ---
 
@@ -73,14 +69,12 @@ To generate views for a YouTube video, use the following input:
     "proxyCountryCode": "US",
     "waitOnPage": 120,
     "endAfterSeconds": 1200,
-    "duplicateActor": 2
 }
 ```
 
 This configuration:
 - Generates views for the specified YouTube video.
 - Simulates 10 views by waiting 120 seconds per view and running for 1200 seconds.
-- Uses 2 duplicate actor instances to scale traffic generation.
 
 ---
 

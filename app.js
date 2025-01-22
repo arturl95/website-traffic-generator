@@ -21,6 +21,12 @@ const randomUserAgent = require('random-useragent');
         duplicateActor = 1,
     } = input;
 
+    // Global timeout to exit the actor after endAfterSeconds
+    const globalTimeout = setTimeout(async () => {
+        console.log(`Global timeout of ${endAfterSeconds} seconds reached. Exiting actor.`);
+        await Actor.exit();
+    }, endAfterSeconds * 1000); // Convert seconds to milliseconds
+
     const proxyConfiguration = await Actor.createProxyConfiguration({
         groups: ['RESIDENTIAL'],
         countryCode: proxyCountryCode,
@@ -53,7 +59,6 @@ const randomUserAgent = require('random-useragent');
                 });
             },
         ],
-        requestHandlerTimeoutSecs: endAfterSeconds,
         requestHandler: async ({ page, request }) => {
             console.log(`Navigating to ${request.url}`);
             //await page.goto(request.url, { waitUntil: 'networkidle' });
@@ -67,8 +72,13 @@ const randomUserAgent = require('random-useragent');
                     anchors.map(anchor => anchor.href)
                 );
                 for (const link of links) {
-                    console.log(`Queueing link: ${link}`);
-                    await crawler.addRequests([link]);
+                    // Check if the link is a valid URL (not a mailto link)
+                    if (!link.startsWith('mailto:')) {
+                        console.log(`Queueing link: ${link}`);
+                        await crawler.addRequests([link]);
+                    } else {
+                        console.log(`Skipping mailto link: ${link}`);
+                    }
                 }
             }
 
@@ -80,13 +90,17 @@ const randomUserAgent = require('random-useragent');
     });
 
     console.log(`Starting Traffic Generator.`);
-    await crawler.run(startUrls.map(({ url }) => ({ url })));
-
-    for (let i = 1; i <= duplicateActor; i++) {
-        console.log(`Starting duplicate actor run #${i}`);
+    try {
         await crawler.run(startUrls.map(({ url }) => ({ url })));
-    }
 
-    console.log('Traffic Generator Actor finished.');
-    await Actor.exit();
+        for (let i = 1; i <= duplicateActor; i++) {
+            console.log(`Starting duplicate actor run #${i}`);
+            await crawler.run(startUrls.map(({ url }) => ({ url })));
+        }
+    } finally {
+        // Clear the global timeout to prevent premature exit
+        clearTimeout(globalTimeout);
+        console.log('Traffic Generator Actor finished.');
+        await Actor.exit();
+    }
 })();
