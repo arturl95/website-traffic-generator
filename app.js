@@ -12,7 +12,8 @@ const randomUserAgent = require('random-useragent');
 
     const {
         startUrls,
-        proxyCountryCode = "US",
+        proxyCountryCode,
+        useProxy,
         enableCrawling = false,
         crawlingLinkSelector = "a",
         blockUrlPatterns = [],
@@ -27,10 +28,16 @@ const randomUserAgent = require('random-useragent');
         await Actor.exit();
     }, endAfterSeconds * 1000); // Convert seconds to milliseconds
 
-    const proxyConfiguration = await Actor.createProxyConfiguration({
-        groups: ['RESIDENTIAL'],
-        countryCode: proxyCountryCode,
-    });
+    let proxyConfiguration;
+    if (useProxy) {
+        console.log(`Using residential proxies with country code: ${proxyCountryCode}`);
+        proxyConfiguration = await Actor.createProxyConfiguration({
+            groups: ['RESIDENTIAL'],
+            countryCode: proxyCountryCode,
+        });
+    } else {
+        console.log('Not using proxies. All requests will be direct.');
+    }
 
     const crawler = new PlaywrightCrawler({
         launchContext: {
