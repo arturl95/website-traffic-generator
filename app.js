@@ -51,7 +51,7 @@ const randomUserAgent = require('random-useragent');
                 // Block unnecessary resources
                 await page.route('**/*', (route) => {
                     const url = route.request().url();
-                    if (blockUrlPatterns.some(pattern => url.includes(pattern))) {
+                    if (blockUrlPatterns.some(pattern => url.includes(pattern)) || /\.(jpg|jpeg|png|gif|css|js|woff|svg|ico|json)$/.test(url)) {
                         route.abort();
                     } else {
                         route.continue();
