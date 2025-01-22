@@ -14,6 +14,12 @@
             ],
             "editor": "requestListSources"
         },
+        "useProxy": {
+            "title": "Use Proxy",
+            "type": "boolean",
+            "description": "Enable or disable the use of residential proxies.",
+            "default": false
+        },
         "proxyCountryCode": {
             "title": "Proxy Country Code",
             "type": "string",
