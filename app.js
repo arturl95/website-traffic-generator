@@ -5,14 +5,7 @@ const randomUserAgent = require('random-useragent');
 (async () => {
     await Actor.init();
 
-    //const input = await Actor.getInput();
-    const input = {
-        startUrls: [
-            {
-                url: "https://www.youtube.com/watch?v=jNQXAC9IVRw"
-            }
-        ],
-    };
+    const input = await Actor.getInput();
     if (!input || !Array.isArray(input.startUrls) || input.startUrls.length === 0) {
         throw new Error('No valid Start URLs provided in the input.');
     }
