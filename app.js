@@ -61,8 +61,7 @@ const randomUserAgent = require('random-useragent');
         ],
         requestHandler: async ({ page, request }) => {
             console.log(`Navigating to ${request.url}`);
-            //await page.goto(request.url, { waitUntil: 'networkidle' });
-
+            await page.goto(request.url, { timeout: 60000 }); // 60 seconds timeout for navigation
             console.log(`Pageview mode activated. Waiting on page for ${waitOnPage} seconds.`);
             await page.waitForTimeout(waitOnPage * 1000);
 
