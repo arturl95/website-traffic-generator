@@ -1,0 +1,71 @@
+{
+    "title": "Traffic Generator Input Schema",
+    "type": "object",
+    "schemaVersion": 1,
+    "properties": {
+        "startUrls": {
+            "title": "Target URLs",
+            "type": "array",
+            "description": "List of URLs to generate traffic for.",
+            "prefill": [
+                {
+                    "url": "https://www.youtube.com/watch?v=jNQXAC9IVRw"
+                }
+            ],
+            "editor": "requestListSources"
+        },
+        "proxyCountryCode": {
+            "title": "Proxy Country Code",
+            "type": "string",
+            "description": "Specify the two-letter country code for remote proxies, or 'LOCAL' for a local proxy.",
+            "default": "US",
+            "maxLength": 2,
+            "editor": "textfield"
+        },
+        "waitOnPage": {
+            "title": "Wait Time on Page (seconds)",
+            "type": "number",
+            "description": "Specify how long (in seconds) the actor should stay on each page.",
+            "default": 60,
+            "minimum": 1,
+            "maximum": 300
+        },
+        "enableCrawling": {
+            "title": "Enable Crawling",
+            "type": "boolean",
+            "description": "Enable crawling of subpages and links within the target pages.",
+            "default": false
+        },
+        "crawlingLinkSelector": {
+            "title": "Crawling Link Selector",
+            "type": "string",
+            "description": "CSS selector for extracting links to crawl. This is used only when crawling is enabled.",
+            "default": "a",
+            "editor": "textfield"
+        },
+        "blockUrlPatterns": {
+            "title": "Blocked URL Patterns",
+            "type": "array",
+            "description": "Patterns of URLs to block during traffic generation (e.g., '.jpg', '.css').",
+            "default": [],
+            "editor": "requestListSources"
+        },
+        "duplicateActor": {
+            "title": "Duplicate Actor Instances",
+            "type": "number",
+            "description": "Number of additional actor instances to run simultaneously for increased traffic.",
+            "default": 1,
+            "minimum": 1,
+            "maximum": 10
+        },
+        "endAfterSeconds": {
+            "title": "Execution Duration (seconds)",
+            "type": "number",
+            "description": "Maximum time (in seconds) for the actor to run before stopping.",
+            "default": 600,
+            "minimum": 60,
+            "maximum": 3600
+        }
+    },
+    "required": ["startUrls"]
+}
