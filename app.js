@@ -35,7 +35,7 @@ const randomUserAgent = require('random-useragent');
 
     const crawler = new PlaywrightCrawler({
         launchContext: {
-            launchOptions: { headless: false }, // Change to false if you want to see the browser
+            launchOptions: { headless: true }, // Change to false if you want to see the browser
         },
         browserPoolOptions: {
             useFingerprints: true,
