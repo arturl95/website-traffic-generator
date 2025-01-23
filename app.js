@@ -19,7 +19,7 @@ const randomUserAgent = require('random-useragent');
         blockUrlPatterns = [],
         waitOnPage = 60,
         endAfterSeconds = 600,
-        duplicateActor = 1,
+        //duplicateActor = 1,
     } = input;
 
     // Global timeout to exit the actor after endAfterSeconds
@@ -99,10 +99,10 @@ const randomUserAgent = require('random-useragent');
     try {
         await crawler.run(startUrls.map(({ url }) => ({ url })));
 
-        for (let i = 1; i <= duplicateActor; i++) {
-            console.log(`Starting duplicate actor run #${i}`);
-            await crawler.run(startUrls.map(({ url }) => ({ url })));
-        }
+        //for (let i = 1; i <= duplicateActor; i++) {
+            //console.log(`Starting duplicate actor run #${i}`);
+            //await crawler.run(startUrls.map(({ url }) => ({ url })));
+        //}
     } finally {
         // Clear the global timeout to prevent premature exit
         clearTimeout(globalTimeout);
