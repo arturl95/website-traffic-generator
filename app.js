@@ -98,15 +98,11 @@ const randomUserAgent = require('random-useragent');
     console.log(`Starting Traffic Generator.`);
     try {
         await crawler.run(startUrls.map(({ url }) => ({ url })));
-
-        //for (let i = 1; i <= duplicateActor; i++) {
-            //console.log(`Starting duplicate actor run #${i}`);
-            //await crawler.run(startUrls.map(({ url }) => ({ url })));
-        //}
     } finally {
         // Clear the global timeout to prevent premature exit
         clearTimeout(globalTimeout);
         console.log('Traffic Generator Actor finished.');
+        await Actor.pushData({result:true});
         await Actor.exit();
     }
 })();
