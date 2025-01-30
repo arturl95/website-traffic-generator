@@ -18,12 +18,12 @@
             "title": "Use Proxy",
             "type": "boolean",
             "description": "Enable or disable the use of residential proxies.",
-            "default": false
+            "default": true
         },
         "proxyCountryCode": {
             "title": "Proxy Country Code",
             "type": "string",
-            "description": "Specify the two-letter country code for remote proxies, or 'LOCAL' for a local proxy.",
+            "description": "Specify the two-letter country code for remote proxies.",
             "default": "US",
             "maxLength": 2,
             "editor": "textfield"
